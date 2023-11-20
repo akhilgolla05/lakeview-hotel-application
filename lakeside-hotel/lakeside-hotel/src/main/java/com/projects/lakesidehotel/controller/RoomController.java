@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
+
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/rooms")
@@ -34,7 +36,7 @@ public class RoomController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/room/types")
+    @GetMapping("/room-types")
     public List<String> getRoomTypes() {
         return roomService.getAllRoomTypes();
     }
