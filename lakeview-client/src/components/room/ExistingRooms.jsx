@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react'
 import RoomFilter from '../common/RoomFilter'
 import RoomPaginator from '../common/RoomPaginator'
 import { Col } from 'react-bootstrap'
-import { getAllRooms } from '../utils/ApiFunctions'
+import { deleteRoom, getAllRooms } from '../utils/ApiFunctions'
+import {FaEdit, FaEye, FaTrashAlt} from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 const ExistingRooms = () => {
 
@@ -76,6 +78,31 @@ fetch all rooms from DB
     setCurrentPage(pageNumber)
    }
 
+   /*
+    handling the delete function
+   */
+
+    const handleDelete = async (roomId)=>{
+
+        try{
+            const result = await deleteRoom(roomId)
+            if(result === ""){
+                setSuccessMessage(`Room no : ${roomId} was deleted`)
+                fetchRooms()
+            }else{
+                console.error(`Error deleting room : ${result.message}`)
+            }
+        }catch(error){
+            setErrorMessage(error.message)
+        }
+
+        //after 3 seconds ay message that is displayed on the page going to be cleared off
+        setTimeout(()=>{
+            setSuccessMessage("")
+            setErrorMessage("")
+        }, 3000)
+    }
+
   return (
     <>
       {isLoading ? (
@@ -109,9 +136,22 @@ fetch all rooms from DB
                                 <td>{room.id}</td>
                                 <td>{room.roomType}</td>
                                 <td>{room.roomPrice}</td>
-                                <td>
-                                    <button>View / Edit</button>
-                                    <button>Delete</button>
+                                <td className="gap-2">
+                                    <Link to={`/edit-room/${room.id}`}>
+                                        <span className="btn btn-info btn-sm">
+                                            <FaEye/>
+                                            </span>
+                                        <span className="btn btn-warning btn-sm">
+                                            <FaEdit/>
+                                            </span>
+                                        </Link>
+                                    
+                                    
+                                    <button
+                                    className="btn btn-danger btn-sm"
+                                    onClick={()=>handleDelete(room.id)}>
+                                        <FaTrashAlt/>
+                                    </button>
                                     
                                 </td>
                         
