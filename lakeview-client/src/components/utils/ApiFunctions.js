@@ -40,3 +40,16 @@ export async function getRoomTypes(){
 
     }
 }
+
+/*
+this function gets all rooms from the DB
+*/
+export async function getAllRooms(){
+    try{
+
+        const result  = await api.get("/rooms/all-rooms")
+        return result.data
+    }catch(error){
+        throw new Error("Error Fetching rooms")
+    }
+}
