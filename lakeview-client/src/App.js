@@ -7,6 +7,8 @@ import NavBar from "./components/layout/NavBar";
 import Footer from "./components/layout/Footer";
 import RoomListing from "./components/room/RoomListing";
 import Admin from "./components/admin/Admin";
+import CheckOut from "./components/bookings/CheckOut";
+import BookingSuccess from "./components/bookings/BookingSuccess";
 
 
 
@@ -24,6 +26,8 @@ function App() {
             {/* <Route path="/browse-all-rooms" element={<RoomListing/>}/> */}
             <Route path="/browse-all-rooms" element={<RoomListing />} />
             <Route path="/admin" element={<Admin/>} />
+            <Route path="/book-room/:roomId" element={<CheckOut/>}/>
+            <Route path="/booking-success" element={<BookingSuccess/>}/>
           </Routes>
           
         </BrowserRouter>
