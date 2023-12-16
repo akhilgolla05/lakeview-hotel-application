@@ -21,7 +21,7 @@ const BookingForm = () => {
     const navigate = useNavigate()
 
     const [booking, setBooking] = useState({
-        guestName : "",
+        guestFullName : "",
         guestEmail : "",
         checkInDate : "",
         checkOutDate : "",
@@ -145,8 +145,8 @@ const BookingForm = () => {
                         </Form.Group>
                         <FormControl required type='text'
                         id="guestName"
-                        name="guestName"
-                        value={booking.guestName}
+                        name="guestFullName"
+                        value={booking.guestFullName}
                         placeholder='Enter Your Full Name'
                         onChange={handleInputChange} />
 
