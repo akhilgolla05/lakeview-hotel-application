@@ -54,9 +54,9 @@ public class BookedRoomController {
     }
 
     @GetMapping("/confirmation/{confirmationCode}")
-    public ResponseEntity<?> getBookingByConfirmation(@PathVariable("conformationCode") String conformationCode){
+    public ResponseEntity<?> getBookingByConfirmation(@PathVariable("confirmationCode") String confirmationCode){
         try{
-            BookedRoom booking = bookingService.findByBookingConfirmationCode(conformationCode);
+            BookedRoom booking = bookingService.findByBookingConfirmationCode(confirmationCode);
             BookingResponse bookingResponse = getBookingResponse(booking);
             return ResponseEntity.ok(bookingResponse);
         }catch(ResourceNotFoundException ex){
