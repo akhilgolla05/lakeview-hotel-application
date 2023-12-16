@@ -61,10 +61,10 @@ const NavBar = () => {
 
             <ul className="d-flex navbar-nav">
                 <li className="nav-item">
-                    <NavLink className="nav-link"
+                    <Link className="nav-link"
                     to={"/find-booking"}>
                         Find My Booking
-                    </NavLink>
+                    </Link>
                 </li>
 
                 <li className="nav-item dropdown">
