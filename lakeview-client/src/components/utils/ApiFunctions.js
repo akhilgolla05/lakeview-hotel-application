@@ -161,3 +161,16 @@ export async function cancelBooking(bookingId){
     }
 }
 
+
+//get available rooms
+export async function getAvailableRooms(checkInDate, checkOutDate, roomType){
+    const result = await api.get(`rooms/available-rooms?
+    checkInDate=${checkInDate}
+    &checkOutDate=${checkOutDate}
+    &roomType=${roomType}`)
+
+    return result
+}
+
+
+
