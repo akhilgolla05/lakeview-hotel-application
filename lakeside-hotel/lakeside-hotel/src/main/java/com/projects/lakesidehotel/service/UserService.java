@@ -8,11 +8,14 @@ import com.projects.lakesidehotel.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 
+@Service
 @RequiredArgsConstructor
 public class UserService implements iUserService{
 
@@ -24,7 +27,7 @@ public class UserService implements iUserService{
 
     @Override
     public User registerUser(User user) {
-        if(userRepository.existByEmail(user.getEmail())){
+        if(userRepository.existsByEmail(user.getEmail())){
             throw new UserAlreadyExistsException(user.getEmail() + " already exists.");
         }
         //encode the password, if user not exists
@@ -42,12 +45,17 @@ public class UserService implements iUserService{
     @Transactional
     @Override
     public void deleteUser(String email) {
-        userRepository.deleteByEmail(email);
+        User theUser = getUserById(email);
+        if(theUser !=null){
+            userRepository.deleteByEmail(email);
+        }
+
 
     }
 
     @Override
     public User getUserById(String email) {
-        return userRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User Not Found."));
+        return userRepository.findByEmail(email)
+                .orElseThrow(()-> new UsernameNotFoundException("User Not Found."));
     }
 }

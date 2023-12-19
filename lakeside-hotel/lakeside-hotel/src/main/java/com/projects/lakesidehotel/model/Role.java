@@ -1,6 +1,7 @@
 package com.projects.lakesidehotel.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Role {
 
     @Id
@@ -23,6 +25,10 @@ public class Role {
 
     @ManyToMany(mappedBy = "roles")
     private Collection<User> users = new HashSet<>();
+
+    public Role(String name) {
+        this.name = name;
+    }
 
 
     //assign role to user
