@@ -1,6 +1,6 @@
 Technologies Used :
   1. HTML
-  2. CSS
+  2. CSS (Boot-strap)
   3. Java Script
   4. Java
 
