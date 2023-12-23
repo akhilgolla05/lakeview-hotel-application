@@ -12,6 +12,6 @@ public interface iUserService {
 
     void deleteUser(String email);
 
-    User getUserById(String email);
+    User getUser(String email);
 
 }

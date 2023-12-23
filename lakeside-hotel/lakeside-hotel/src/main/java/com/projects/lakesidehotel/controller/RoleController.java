@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/api/roles")
+@RestController
+@RequestMapping("/roles")
 @RequiredArgsConstructor
 public class RoleController {
 
@@ -26,15 +27,14 @@ public class RoleController {
     }
 
     @PostMapping("/create-new-role")
-    public ResponseEntity<String> createNewRole(@RequestBody Role theRole){
-
+    public ResponseEntity<String> createRole(@RequestBody Role theRole){
         try{
             roleService.createRole(theRole);
-            return ResponseEntity.ok("New Role Created Successfully!");
-        }catch(RoleAlreadyExistException ex){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
-        }
+            return ResponseEntity.ok("New role created successfully!");
+        }catch(RoleAlreadyExistException re){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(re.getMessage());
 
+        }
     }
 
     @DeleteMapping("/delete/{roleId}")

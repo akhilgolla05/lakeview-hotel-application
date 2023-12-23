@@ -27,13 +27,13 @@ public class UserService implements iUserService{
 
     @Override
     public User registerUser(User user) {
-        if(userRepository.existsByEmail(user.getEmail())){
-            throw new UserAlreadyExistsException(user.getEmail() + " already exists.");
+        if (userRepository.existsByEmail(user.getEmail())){
+            throw new UserAlreadyExistsException(user.getEmail() + " already exists");
         }
-        //encode the password, if user not exists
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        System.out.println(user.getPassword());
         Role userRole = roleRepository.findByName("ROLE_USER").get();
-        user.setRoles(Collections.singleton(userRole));
+        user.setRoles(Collections.singletonList(userRole));
         return userRepository.save(user);
     }
 
@@ -45,7 +45,7 @@ public class UserService implements iUserService{
     @Transactional
     @Override
     public void deleteUser(String email) {
-        User theUser = getUserById(email);
+        User theUser = getUser(email);
         if(theUser !=null){
             userRepository.deleteByEmail(email);
         }
@@ -54,8 +54,8 @@ public class UserService implements iUserService{
     }
 
     @Override
-    public User getUserById(String email) {
+    public User getUser(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(()-> new UsernameNotFoundException("User Not Found."));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }
