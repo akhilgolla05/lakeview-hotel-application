@@ -54,10 +54,12 @@ body {
   
     /* Hotel custom color */
    .btn-hotel{
-    background-color: rgb(169, 77, 123);
+    /* background-color: rgb(196, 28, 112); */
+    background-color: rgb(196, 28, 112);
     color: #fff;
     }
     .btn-hotel:hover{
+    /* background-color: rgb(137, 127, 132); */
     background-color: rgb(137, 127, 132);
     color: #fff;
     transition: 0.7s;

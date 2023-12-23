@@ -11,6 +11,7 @@ import com.projects.lakesidehotel.service.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class BookedRoomController {
     private final RoomService roomService;
 
     @GetMapping("/all-bookings")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<BookingResponse>> getAllBookings(){
 
         List<BookedRoom> bookings = bookingService.getAllBookings();
@@ -84,6 +86,17 @@ public class BookedRoomController {
     public void cancelBooking(@PathVariable("bookingId") Long bookingId){
         bookingService.cancelBooking(bookingId);
 
+    }
+
+    @GetMapping("/user/{email}/bookings")
+    public ResponseEntity<List<BookingResponse>> getBookingsByUserEmail(@PathVariable String email) {
+        List<BookedRoom> bookings = bookingService.getBookingsByUserEmail(email);
+        List<BookingResponse> bookingResponses = new ArrayList<>();
+        for (BookedRoom booking : bookings) {
+            BookingResponse bookingResponse = getBookingResponse(booking);
+            bookingResponses.add(bookingResponse);
+        }
+        return ResponseEntity.ok(bookingResponses);
     }
 
 

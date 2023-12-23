@@ -11,12 +11,17 @@ import CheckOut from "./components/bookings/CheckOut";
 import BookingSuccess from "./components/bookings/BookingSuccess";
 import Bookings from "./components/bookings/Bookings";
 import FindBooking from "./components/bookings/FindBooking";
+import Login from "./components/auth/Login";
+import Registration from "./components/auth/Registration";
+import Profile from "./components/auth/Profile";
+import AuthProvider from "./components/auth/AuthProvider";
+import RequireAuth from "./components/auth/RequireAuth";
 
 
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <main>
         <BrowserRouter>
         <NavBar/>
@@ -28,10 +33,26 @@ function App() {
             {/* <Route path="/browse-all-rooms" element={<RoomListing/>}/> */}
             <Route path="/browse-all-rooms" element={<RoomListing />} />
             <Route path="/admin" element={<Admin/>} />
-            <Route path="/book-room/:roomId" element={<CheckOut/>}/>
+
+
+            <Route path="/book-room/:roomId" 
+            element={
+            <RequireAuth>
+                <CheckOut/>
+            </RequireAuth>
+            
+            
+            }/>
+            
+            
+            
             <Route path="/booking-success" element={<BookingSuccess/>}/>
             <Route path="/existing-bookings" element={<Bookings/>}/>
             <Route path="/find-booking" element={<FindBooking/>}/>
+            
+            <Route path="/login" element={<Login/>}/>
+            <Route path="/register" element={<Registration/>}/>
+            <Route path="/profile" element={<Profile/>}/>
             
 
 
@@ -44,7 +65,7 @@ function App() {
       {/* /add-room */}
       {/* <AddRoom/>
       <ExistingRooms/> */}
-    </>
+    </AuthProvider>
   );
 }
 

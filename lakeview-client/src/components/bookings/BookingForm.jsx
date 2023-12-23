@@ -20,9 +20,11 @@ const BookingForm = () => {
 
     const navigate = useNavigate()
 
+    const currentUser = localStorage.getItem("userId")
+
     const [booking, setBooking] = useState({
         guestFullName : "",
-        guestEmail : "",
+        guestEmail : currentUser,
         checkInDate : "",
         checkOutDate : "",
         numOfAdults : "",

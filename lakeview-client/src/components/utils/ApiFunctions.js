@@ -7,6 +7,23 @@ export const api = axios.create(
     }
 )
 
+//get the header
+
+export const getHeader = () => {
+
+    const token = localStorage.getItem("token")
+    return{
+
+        Authorization : `Bearer ${token}`,
+        "Content-Type": "application/json"
+
+    }
+        
+
+   
+}
+
+
 /*
 this function adds a new room to the database
 */
@@ -173,4 +190,100 @@ export async function getAvailableRooms(checkInDate, checkOutDate, roomType){
 }
 
 
+//register-user
+export async function registerUser(registration){
+    try{
+        const response = await api.post("/auth/register-user", registration)
+        return response.data
 
+    }catch(error){
+
+        if(error.response && error.response.data){
+            throw new Error(error.response.data)
+        }else{
+            throw new Error(`User registration error : ${error.message}`)
+
+        }
+
+    }
+}
+
+//login
+
+export async function loginUser(login){
+    
+    try{
+        const response = await api.post("/auth/login", login)
+    
+        if(response.status >= 200 && response.status < 300){
+            return response.data
+        }
+        else{
+            return null
+        }
+    }catch(error){
+
+        console.error(error)
+        return null
+    }
+}
+
+//get a user profile
+//when user logged in - he/she gets userId(email) and token
+export async function getUserProfile(userId, token){
+
+    try{
+
+        const response = await api.get(`users/profile/${userId}` , 
+        {
+            headers : getHeader()
+        })
+
+        return response.data
+
+    }catch(error){
+
+        throw error
+
+    }
+}
+
+//delete user
+export async function deleteUser(userId){
+    try{
+
+        const response = await api.delete(`/users/delete/${userId}`, 
+        {
+            headers : getHeader()
+        })
+        return response.data
+    }catch(error){
+        return error.message
+    }
+}
+
+
+/* This is the function to get a single user */
+export async function getUser(userId, token) {
+	try {
+		const response = await api.get(`/users/${userId}`, {
+			headers: getHeader()
+		})
+		return response.data
+	} catch (error) {
+		throw error
+	}
+}
+
+/* This is the function to get user bookings by the user id */
+export async function getBookingsByUserId(userId, token) {
+	try {
+		const response = await api.get(`/bookings/user/${userId}/bookings`, {
+			headers: getHeader()
+		})
+		return response.data
+	} catch (error) {
+		console.error("Error fetching bookings:", error.message)
+		throw new Error("Failed to fetch bookings")
+	}
+}
