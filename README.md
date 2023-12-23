@@ -3,6 +3,7 @@ Technologies Used :
   2. CSS (Boot-strap)
   3. Java Script
   4. Java
+  5. MySql
 
 Frameworks:
   1. React Js
